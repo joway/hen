@@ -1,0 +1,18 @@
+routes:
+  - path: '/404'
+    template: 'file://404.html'
+  - path: '/'
+    template: 'file://post/index.html'
+    routes:
+      - path: '/post/404'
+        template: 'file://post/404.html'
+      - path: '/post'
+        template: 'file://post/detail.html'
+        data:
+          type: 'post'
+          arthur: 'Joway'
+        routes:
+          - path: '/post/1'
+            data:
+              title: 'This is title!'
+              content: 'file://post/content/1.md'

@@ -1,0 +1,26 @@
+[[routes]]
+path = "/404"
+template = "file://404.html"
+
+[[routes]]
+path = "/"
+template = "file://post/index.html"
+
+  [[routes.routes]]
+  path = "/post/404"
+  template = "file://post/404.html"
+
+  [[routes.routes]]
+  path = "/post"
+  template = "file://post/detail.html"
+
+    [routes.routes.data]
+    type = "post"
+    arthur = "Joway"
+
+    [[routes.routes.routes]]
+    path = "/post/1"
+
+      [routes.routes.routes.data]
+      title = "This is title!"
+      content = "file://post/content/1.md"
