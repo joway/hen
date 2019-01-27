@@ -15,7 +15,6 @@ routes:
     template: 'file://post/index.html'
     routes:
       - path: '/post/404'
-        template: 'file://post/404.html'
       - path: '/post'
         template: 'file://post/detail.html'
         data:
@@ -36,6 +35,8 @@ routes:
 	assert.Equal(t, "file://post/index.html", route.Template)
 	assert.Equal(t, 2, len(route.Routes))
 	assert.Equal(t, "/post/404", route.Routes[0].Path)
+	// test inherit
+	assert.Equal(t, "file://post/index.html", route.Routes[0].Template)
 	assert.Equal(t, 1, len(route.Routes[1].Routes))
 	assert.Equal(t, "/post/1", route.Routes[1].Routes[0].Path)
 	assert.Equal(t, "This is title!", route.Routes[1].Routes[0].Data["title"])

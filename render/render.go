@@ -13,7 +13,6 @@ func New(engine engine.TemplateEngine) *Render {
 		engine: engine,
 	}
 }
-
-func (r *Render) Output(input string) string {
-	return r.engine.Render(input)
+func (r *Render) Output(data map[string]interface{}, input string) (string, error) {
+	return r.engine.Render(data, input)
 }

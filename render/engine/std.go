@@ -1,25 +1,29 @@
 package engine
 
 import (
-	"github.com/Masterminds/sprig"
+    "github.com/Masterminds/sprig"
 
-	"bytes"
-	"html/template"
+    "bytes"
+    "html/template"
 )
 
 type STDEngine struct {
-	TemplateEngine
+    TemplateEngine
+}
+
+func NewSTDEngine() *STDEngine {
+    return &STDEngine{}
 }
 
 func (e *STDEngine) Render(data map[string]interface{}, input string) (string, error) {
-	tmpl, err := template.New("base").Funcs(sprig.FuncMap()).Parse(input)
-	if err != nil {
-		return "", err
-	}
-	var doc bytes.Buffer
-	err = tmpl.Execute(&doc, data)
-	if err != nil {
-		return "", err
-	}
-	return doc.String(), nil
+    tmpl, err := template.New("base").Funcs(sprig.FuncMap()).Parse(input)
+    if err != nil {
+        return "", err
+    }
+    var doc bytes.Buffer
+    err = tmpl.Execute(&doc, data)
+    if err != nil {
+        return "", err
+    }
+    return doc.String(), nil
 }

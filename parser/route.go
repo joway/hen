@@ -2,6 +2,7 @@ package parser
 
 import (
 	"encoding/json"
+	"github.com/imdario/mergo"
 )
 
 var (
@@ -19,27 +20,41 @@ type Route struct {
 }
 
 func NewRoute(input map[string]interface{}) *Route {
-	path := ""
-	template := ""
-	var data = make(map[string]interface{})
-	var routes = make([]*Route, 0)
-
-	for key, value := range input {
-		switch key {
-		case KeyPath:
-			path = value.(string)
-		case KeyTemplate:
-			template = value.(string)
-		case KeyData:
-			data = value.(map[string]interface{})
-		case KeyRoutes:
-			items := value.([]interface{})
-			for _, item := range items {
-				r := NewRoute(item.(map[string]interface{}))
-				routes = append(routes, r)
+	path, existed := input[KeyPath].(string)
+	if !existed {
+		path = "/"
+	}
+	template, existed := input[KeyTemplate].(string)
+	if !existed {
+		template = ""
+	}
+	data, existed := input[KeyData].(map[string]interface{})
+	if !existed {
+		data = make(map[string]interface{})
+	}
+	routes := make([]*Route, 0)
+	_routes, existed := input[KeyRoutes].([]interface{})
+	if existed {
+		for _, _route := range _routes {
+			subRoutes := _route.(map[string]interface{})
+			// inherit properties
+			if _, existed := subRoutes[KeyPath]; !existed {
+				subRoutes[KeyPath] = path
 			}
-		default:
-			return nil
+			if _, existed := subRoutes[KeyTemplate]; !existed {
+				subRoutes[KeyTemplate] = template
+			}
+			if _, existed := subRoutes[KeyData]; !existed {
+				subRoutes[KeyData] = data
+			} else {
+				dst := subRoutes[KeyData].(map[string]interface{})
+				if err := mergo.Merge(&dst, data); err != nil {
+					return nil
+				}
+				subRoutes[KeyData] = dst
+			}
+			r := NewRoute(subRoutes)
+			routes = append(routes, r)
 		}
 	}
 
