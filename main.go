@@ -11,8 +11,8 @@ func main() {
 	hen := generator.New(configFormat, configPath)
 	fmt.Println(hen.Config)
 
-    configFormat = "yaml"
-    configPath = "example/config.yml"
-    hen = generator.New(configFormat, configPath)
-    fmt.Println(hen.Config)
+	configFormat = "yaml"
+	configPath = "example/config.yml"
+	hen = generator.New(configFormat, configPath)
+	fmt.Println(hen.Config)
 }

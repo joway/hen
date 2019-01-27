@@ -1,5 +1,5 @@
 package engine
 
 type TemplateEngine interface {
-    Render(string) string
+	Render(string) string
 }

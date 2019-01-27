@@ -1,13 +1,13 @@
 package engine
 
 import (
-    "github.com/stretchr/testify/assert"
-    "testing"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestSTDEngine_Render(t *testing.T) {
-    e := &STDEngine{}
-    input := `
+	e := &STDEngine{}
+	input := `
 {{add .int 1}}
 {{.str}}
 {{ range $key, $value := .array }}{{ $key }} {{ $value }} {{ end }}
@@ -16,15 +16,15 @@ func TestSTDEngine_Render(t *testing.T) {
 {{max .obj.int 1000}}
 {{.obj.str}}
 `
-    data := make(map[string]interface{})
-    data["int"] = 10
-    data["str"] = "test"
-    data["array"] = [2]string{"1", "2"}
-    data["obj"] = map[string]interface{}{"int": 1, "str": "test"}
-    output, err := e.Render(data, input)
+	data := make(map[string]interface{})
+	data["int"] = 10
+	data["str"] = "test"
+	data["array"] = [2]string{"1", "2"}
+	data["obj"] = map[string]interface{}{"int": 1, "str": "test"}
+	output, err := e.Render(data, input)
 
-    assert.NoError(t, err)
-    assert.Equal(t, `
+	assert.NoError(t, err)
+	assert.Equal(t, `
 11
 test
 0 1 1 2 

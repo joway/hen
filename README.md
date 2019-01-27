@@ -1,5 +1,11 @@
 # Hen
 
+
+![GitHub release](https://img.shields.io/github/tag/joway/hen.svg?label=release)
+[![Go Report Card](https://goreportcard.com/badge/github.com/joway/hen)](https://goreportcard.com/report/github.com/joway/hen)
+[![codecov](https://codecov.io/gh/joway/hen/branch/master/graph/badge.svg)](https://codecov.io/gh/joway/hen)
+[![CircleCI](https://circleci.com/gh/joway/hen.svg?style=shield)](https://circleci.com/gh/joway/hen)
+
 > WIP
 
 ---
